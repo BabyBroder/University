@@ -1,0 +1,50 @@
+Time of sorting array 1 using Quick Sort: 133.792 ms
+Time of sorting array 2 using Quick Sort: 218.351 ms
+Time of sorting array 3 using Quick Sort: 198.394 ms
+Time of sorting array 4 using Quick Sort: 203.266 ms
+Time of sorting array 5 using Quick Sort: 212.779 ms
+Time of sorting array 6 using Quick Sort: 198.048 ms
+Time of sorting array 7 using Quick Sort: 209.612 ms
+Time of sorting array 8 using Quick Sort: 211.211 ms
+Time of sorting array 9 using Quick Sort: 207.971 ms
+Time of sorting array 10 using Quick Sort: 202.134 ms
+Time of sorting array 1 using Heap Sort: 195.93 ms
+Time of sorting array 2 using Heap Sort: 194.895 ms
+Time of sorting array 3 using Heap Sort: 321.127 ms
+Time of sorting array 4 using Heap Sort: 307.52 ms
+Time of sorting array 5 using Heap Sort: 325.071 ms
+Time of sorting array 6 using Heap Sort: 298.605 ms
+Time of sorting array 7 using Heap Sort: 269.829 ms
+Time of sorting array 8 using Heap Sort: 313.496 ms
+Time of sorting array 9 using Heap Sort: 295.221 ms
+Time of sorting array 10 using Heap Sort: 311.414 ms
+Time of sorting array 1 using Merge Sort: 175.043 ms
+Time of sorting array 2 using Merge Sort: 178.048 ms
+Time of sorting array 3 using Merge Sort: 247.903 ms
+Time of sorting array 4 using Merge Sort: 234.696 ms
+Time of sorting array 5 using Merge Sort: 233.819 ms
+Time of sorting array 6 using Merge Sort: 236.666 ms
+Time of sorting array 7 using Merge Sort: 250.015 ms
+Time of sorting array 8 using Merge Sort: 235.266 ms
+Time of sorting array 9 using Merge Sort: 236.888 ms
+Time of sorting array 10 using Merge Sort: 251.212 ms
+Time of sorting array 1 using Library in C++: 57.065 ms
+Time of sorting array 2 using Library in C++: 44.103 ms
+Time of sorting array 3 using Library in C++: 124.853 ms
+Time of sorting array 4 using Library in C++: 121.398 ms
+Time of sorting array 5 using Library in C++: 129.643 ms
+Time of sorting array 6 using Library in C++: 121.003 ms
+Time of sorting array 7 using Library in C++: 133.68 ms
+Time of sorting array 8 using Library in C++: 135.478 ms
+Time of sorting array 9 using Library in C++: 130.72 ms
+Time of sorting array 10 using Library in C++: 131.527 ms
+Time of sorting array 1 using Library Python: 11 ms
+Time of sorting array 2 using Library Python: 14 ms
+Time of sorting array 3 using Library Python: 73 ms
+Time of sorting array 4 using Library Python: 75 ms
+Time of sorting array 5 using Library Python: 105 ms
+Time of sorting array 6 using Library Python: 121 ms
+Time of sorting array 7 using Library Python: 165 ms
+Time of sorting array 8 using Library Python: 136 ms
+Time of sorting array 9 using Library Python: 72 ms
+Time of sorting array 10 using Library Python: 71 ms
