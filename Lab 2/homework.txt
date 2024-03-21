@@ -1,0 +1,9 @@
+1. Thời gian phản hồi HTTP cho yêu cầu GET ở gói tin thứ 4 là bao lâu?
+
+2. Có bao nhiêu gói tin SYN?
+
+3. Tên của đối tượng HTTP lớn nhất đã được tải về là gì?
+
+4. Mất bao lâu để tải xuống favicon.ico (bao gồm TCP connection setup/teardown)?
+
+5. Gói tin số 131 là spurious retransmission. Gói tin nào trước đó nào đã gây ra "spurious" cho nó?
