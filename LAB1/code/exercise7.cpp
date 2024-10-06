@@ -8,177 +8,256 @@
 
 /**
  * @class Student
- * @brief Represents a student with scores in multiple subjects.
- * 
- * The Student class encapsulates the data and functionality related to a student,
- * including their full name and scores in Math, Literature, and Foreign Language.
+ * @brief Represents a student with their scores and provides methods to manage and classify them.
  */
 class Student {
 private:
-    std::string fullName;                   ///< The student's full name.
-    float mathScore;                         ///< The student's Math score.
-    float literatureScore;                   ///< The student's Literature score.
-    float foreignLanguageScore;              ///< The student's Foreign Language score.
+    std::string fullName; /**< The full name of the student. */
+    float mathScore; /**< The student's score in mathematics. */
+    float literatureScore; /**< The student's score in literature. */
+    float foreignLanguageScore; /**< The student's score in a foreign language. */
 
 public:
     /**
-     * @brief Constructor to initialize a student.
-     * 
-     * This constructor initializes a student with a full name and scores in three subjects.
-     * 
+     * @brief Constructs a Student object with given scores.
      * @param name The full name of the student.
-     * @param math The Math score of the student.
-     * @param literature The Literature score of the student.
-     * @param language The Foreign Language score of the student.
+     * @param math The student's score in mathematics.
+     * @param literature The student's score in literature.
+     * @param language The student's score in a foreign language.
      */
     Student(const std::string& name, float math, float literature, float language)
         : fullName(name), mathScore(math), literatureScore(literature), foreignLanguageScore(language) {}
 
-    // Getter methods
-    std::string getFullName() const;         ///< Returns the full name of the student.
-    float getMathScore() const;               ///< Returns the Math score of the student.
-    float getLiteratureScore() const;        ///< Returns the Literature score of the student.
-    float getForeignLanguageScore() const;   ///< Returns the Foreign Language score of the student.
-
-    /**
-     * @brief Calculates the average score of the student.
-     * 
-     * The average is calculated with a weight of 2 for the Math score and 1 for
-     * the other subjects.
-     * 
-     * @return The average score of the student.
+    /** 
+     * @brief Gets the full name of the student.
+     * @return The student's full name.
      */
-    float calculateAverageScore() const;
+    std::string getFullName() const { return fullName; }
 
-    /**
-     * @brief Classifies the student based on the average score.
-     * 
-     * The classification can be "Excellent", "Good", "Fair", "Average", or "Weak".
-     * 
+    /** 
+     * @brief Gets the student's score in mathematics.
+     * @return The mathematics score.
+     */
+    float getMathScore() const { return mathScore; }
+
+    /** 
+     * @brief Gets the student's score in literature.
+     * @return The literature score.
+     */
+    float getLiteratureScore() const { return literatureScore; }
+
+    /** 
+     * @brief Gets the student's score in a foreign language.
+     * @return The foreign language score.
+     */
+    float getForeignLanguageScore() const { return foreignLanguageScore; }
+
+    /** 
+     * @brief Calculates the weighted average score of the student.
+     * @return The calculated average score.
+     */
+    float calculateAverageScore() const {
+        return (2 * mathScore + literatureScore + foreignLanguageScore) / 4;
+    }
+
+    /** 
+     * @brief Classifies the student based on their average score.
      * @return A string representing the classification of the student.
      */
-    std::string classifyStudent() const;
+    std::string classifyStudent() const {
+        float avg = calculateAverageScore();
+        if (avg >= 9) return "Excellent";
+        else if (avg >= 8) return "Good";
+        else if (avg >= 6.5) return "Fair";
+        else if (avg >= 5) return "Average";
+        else return "Weak";
+    }
 
-    /**
-     * @brief Validates a student's name.
-     * 
-     * Checks if the name contains only alphabetic characters and spaces.
-     * 
-     * @param name The name to be validated.
-     * @return True if the name is valid; false otherwise.
+    /** 
+     * @brief Validates the student's name to ensure it contains only alphabetic characters and spaces.
+     * @param name The name to validate.
+     * @return True if valid, false otherwise.
      */
-    static bool isValidName(const std::string& name);
+    static bool isValidName(const std::string& name) {
+        return std::all_of(name.begin(), name.end(), [](char c) {
+            return std::isalpha(c) || std::isspace(c);
+        });
+    }
 
-    /**
-     * @brief Validates a student's score.
-     * 
-     * Checks if the score is between 0 and 10.
-     * 
-     * @param score The score to be validated.
-     * @return True if the score is valid; false otherwise.
+    /** 
+     * @brief Validates the student's score to ensure it is between 0 and 10.
+     * @param score The score to validate.
+     * @return True if valid, false otherwise.
      */
-    static bool isValidScore(float score);
+    static bool isValidScore(float score) {
+        return score >= 0 && score <= 10;
+    }
 };
 
 /**
  * @class StudentManager
- * @brief Manages a collection of students.
- * 
- * The StudentManager class provides functionality to add students, find the top
- * student, search for students by name, and find students with the lowest Math score.
+ * @brief Manages a collection of students and provides methods to interact with them.
  */
 class StudentManager {
 private:
-    std::vector<Student> students;  ///< A collection of students.
+    std::vector<Student> students; /**< A vector to hold the list of students. */
 
 public:
-    /**
+    /** 
      * @brief Adds a student to the collection.
-     * 
-     * This method adds a Student object to the internal collection.
-     * 
-     * @param student The Student object to be added.
+     * @param student The student to be added.
      */
-    void addStudent(const Student& student);
+    void addStudent(const Student& student) {
+        students.push_back(student);
+    }
 
-    /**
-     * @brief Finds the student with the highest average score.
-     * 
-     * This method searches through the collection of students and returns the one 
-     * with the highest average score.
-     * 
-     * @return The Student object with the highest average score.
+    /** 
+     * @brief Finds and returns the student with the highest average score.
+     * @return The student with the highest average score.
      * @throws std::runtime_error if no students are available.
      */
-    Student findTopStudent() const;
+    Student findTopStudent() const {
+        if (students.empty()) {
+            throw std::runtime_error("No students available!");
+        }
+        float maxAverage = -1;
+        Student topStudent = students[0];
+        for (const auto& student : students) {
+            float avg = student.calculateAverageScore();
+            if (avg > maxAverage) {
+                maxAverage = avg;
+                topStudent = student;
+            }
+        }
+        return topStudent;
+    }
 
-    /**
-     * @brief Searches for students by (partial) name.
-     * 
-     * This method searches for students whose names contain the specified query, 
-     * case insensitive.
-     * 
-     * @param query The name or part of the name to search for.
-     * @return A vector of Student objects matching the search criteria.
+    /** 
+     * @brief Searches for students by name (case insensitive).
+     * @param query The name (or part of it) to search for.
+     * @return A vector of students matching the search query.
      */
-    std::vector<Student> searchStudentsByName(const std::string& query) const;
+    std::vector<Student> searchStudentsByName(const std::string& query) const {
+        std::vector<Student> results;
+        std::string lowerQuery = toLower(query);
+        for (const auto& student : students) {
+            std::string lowerName = toLower(student.getFullName());
+            if (lowerName.find(lowerQuery) != std::string::npos) {
+                results.push_back(student);
+            }
+        }
+        return results;
+    }
 
-    /**
-     * @brief Finds students with the lowest Math score.
-     * 
-     * This method searches through the collection of students and returns those
-     * with the lowest Math score.
-     * 
-     * @return A vector of Student objects with the lowest Math score.
+    /** 
+     * @brief Finds and returns students with the lowest math score.
+     * @return A vector of students with the lowest math score.
      * @throws std::runtime_error if no students are available.
      */
-    std::vector<Student> findLowestMathScoreStudents() const;
+    std::vector<Student> findLowestMathScoreStudents() const {
+        if (students.empty()) {
+            throw std::runtime_error("No students available!");
+        }
+        float minMathScore = std::numeric_limits<float>::max();
+        for (const auto& student : students) {
+            if (student.getMathScore() < minMathScore) {
+                minMathScore = student.getMathScore();
+            }
+        }
 
-    /**
+        std::vector<Student> result;
+        for (const auto& student : students) {
+            if (student.getMathScore() == minMathScore) {
+                result.push_back(student);
+            }
+        }
+        return result;
+    }
+
+    /** 
      * @brief Converts a string to lowercase.
-     * 
-     * This helper function is used for case insensitive comparisons.
-     * 
      * @param str The string to convert.
      * @return The lowercase version of the input string.
      */
-    static std::string toLower(const std::string& str);
+    static std::string toLower(const std::string& str) {
+        std::string result = str;
+        std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c) { return std::tolower(c); });
+        return result;
+    }
 
-    /**
-     * @brief Prints all student information.
-     * 
-     * This method outputs the details of all students in the collection, 
-     * including their scores and classifications.
+    /** 
+     * @brief Prints all student information to the console.
      */
-    void printAllStudents() const;
+    void printAllStudents() const {
+        for (const auto& student : students) {
+            std::cout << "Name: " << student.getFullName() << "\n";
+            std::cout << "Math Score: " << student.getMathScore() 
+                      << ", Literature Score: " << student.getLiteratureScore() 
+                      << ", Foreign Language Score: " << student.getForeignLanguageScore() << "\n";
+            std::cout << "Average Score: " << std::fixed << std::setprecision(2) 
+                      << student.calculateAverageScore() << ", Classification: " 
+                      << student.classifyStudent() << "\n\n";
+        }
+    }
 };
 
-/**
- * @brief Prompts the user for a valid score input.
- * 
- * This function ensures that the user enters a numeric value between 0 and 10.
- * 
- * @return A valid score as a float.
+/** 
+ * @brief Helper function to input and validate student scores.
+ * @return A valid score between 0 and 10.
  */
-float getValidScore();
+float getValidScore() {
+    float score;
+    while (true) {
+        std::cin >> score;
+        if (std::cin.fail()) { // Check if input is invalid
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cout << "Invalid input! Please enter a numeric value between 0 and 10: ";
+        } else if (!Student::isValidScore(score)) {
+            std::cout << "Score must be between 0 and 10. Please enter again: ";
+        } else {
+            return score;
+        }
+    }
+}
 
-/**
- * @brief Prompts the user to input student information.
- * 
- * This function gathers the full name and scores for a student, ensuring 
- * valid input is provided.
- * 
- * @return A Student object initialized with the inputted data.
+/** 
+ * @brief Inputs student information from the console.
+ * @return A Student object containing the inputted information.
  */
-Student inputStudent();
+Student inputStudent() {
+    std::string name;
+    float math, literature, language;
 
-/**
- * @brief Main function to run the student management system.
- * 
- * This function handles user input, manages student records, and displays results
- * including the top student and search results based on names.
- * 
- * @return An integer indicating the exit status of the program.
+    // Input and validate full name
+    do {
+        std::cout << "Enter full name: ";
+        std::getline(std::cin, name);
+        if (!Student::isValidName(name)) {
+            std::cout << "Invalid name! Name must contain only alphabetic characters and spaces.\n";
+        }
+    } while (!Student::isValidName(name));
+
+    // Input and validate math score
+    std::cout << "Enter math score (0-10): ";
+    math = getValidScore();
+
+    // Input and validate literature score
+    std::cout << "Enter literature score (0-10): ";
+    literature = getValidScore();
+
+    // Input and validate foreign language score
+    std::cout << "Enter foreign language score (0-10): ";
+    language = getValidScore();
+
+    std::cin.ignore();  // Clear newline from input buffer
+    return Student(name, math, literature, language);
+}
+
+/** 
+ * @brief The main function to execute the student management program.
+ * It prompts the user for student data and displays various information about the students.
+ * @return Exit status.
  */
 int main() {
     int n;
